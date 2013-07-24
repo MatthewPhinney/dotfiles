@@ -1,84 +1,8 @@
-# .bashrc file
-# By Balaji S. Srinivasan (balajis@stanford.edu)
-#
-# Concepts:
-#
-#    1) .bashrc is the *non-login* config for bash, run in scripts and after
-#        first connection.
-#    2) .bash_profile is the *login* config for bash, launched upon first connection.
-#    3) .bash_profile imports .bashrc, but not vice versa.
-#    4) .bashrc imports .bashrc_custom, which can be used to override
-#        variables specified here.
-#           
-# When using GNU screen:
-#
-#    1) .bash_profile is loaded the first time you login, and should be used
-#       only for paths and environmental settings
-
-#    2) .bashrc is loaded in each subsequent screen, and should be used for
-#       aliases and things like writing to .bash_eternal_history (see below)
-#
-# Do 'man bashrc' for the long version or see here:
-# http://en.wikipedia.org/wiki/Bash#Startup_scripts
-#
-# When Bash starts, it executes the commands in a variety of different scripts.
-#
-#   1) When Bash is invoked as an interactive login shell, it first reads
-#      and executes commands from the file /etc/profile, if that file
-#      exists. After reading that file, it looks for ~/.bash_profile,
-#      ~/.bash_login, and ~/.profile, in that order, and reads and executes
-#      commands from the first one that exists and is readable.
-#
-#   2) When a login shell exits, Bash reads and executes commands from the
-#      file ~/.bash_logout, if it exists.
-#
-#   3) When an interactive shell that is not a login shell is started
-#      (e.g. a GNU screen session), Bash reads and executes commands from
-#      ~/.bashrc, if that file exists. This may be inhibited by using the
-#      --norc option. The --rcfile file option will force Bash to read and
-#      execute commands from file instead of ~/.bashrc.
-
-
-
-# -----------------------------------
-# -- 1.1) Set up umask permissions --
-# -----------------------------------
-#  The following incantation allows easy group modification of files.
-#  See here: http://en.wikipedia.org/wiki/Umask
-#
-#     umask 002 allows only you to write (but the group to read) any new
-#     files that you create.
-#
-#     umask 022 allows both you and the group to write to any new files
-#     which you make.
-#
-#  In general we want umask 022 on the server and umask 002 on local
-#  machines.
-#
-#  The command 'id' gives the info we need to distinguish these cases.
-#
-#     $ id -gn  #gives group name
-#     $ id -un  #gives user name
-#     $ id -u   #gives user ID
-#
-#  So: if the group name is the same as the username OR the user id is not
-#  greater than 99 (i.e. not root or a privileged user), then we are on a
-#  local machine (check for yourself), so we set umask 002.
-#
-#  Conversely, if the default group name is *different* from the username
-#  AND the user id is greater than 99, we're on the server, and set umask
-#  022 for easy collaborative editing.
-if [ "`id -gn`" == "`id -un`" -a `id -u` -gt 99 ]; then
-	umask 002
-else
-	umask 022
-fi
-
 # ---------------------------------------------------------
 # -- 1.2) Set up bash prompt and ~/.bash_eternal_history --
 # ---------------------------------------------------------
 #  Set various bash parameters based on whether the shell is 'interactive'
-#  or not.  An interactive shell is one you type commands into, a
+
 #  non-interactive one is the bash environment used in scripts.
 if [ "$PS1" ]; then
 
@@ -175,18 +99,18 @@ alias cp="cp -i"
 set -o noclobber
 
 # 2.2) Listing, directories, and motion
-alias ll="ls -alrtF --color"
-alias la="ls -A"
+alias ll="ls -lrtG"
+alias la="ls -alrtG"
 alias l="ls -CF"
-alias dir='ls --color=auto --format=vertical'
-alias vdir='ls --color=auto --format=long'
 alias m='less'
 alias ..='cd ..'
 alias ...='cd ..;cd ..'
 alias md='mkdir'
 alias cl='clear'
-alias du='du -ch --max-depth=1'
+alias du='du -ch'
 alias treeacl='tree -A -C -L 2'
+alias ff="find . -name '*\!{*}*' -ls"
+alias wget="wget --no-check-certificate"
 
 # 2.3) Text and editor commands
 alias em='emacs -nw'     # No X11 windows
@@ -219,9 +143,10 @@ if [ -s ~/.nvm/nvm.sh ]; then
     nvm use v0.10.12 &> /dev/null # silence nvm use; needed for rsync
 fi
 
-## ------------------------------
-## -- 3) User-customized code  --
-## ------------------------------
+##
+## -- Personalize welcome message
+##
 
-## Define any user-specific variables you want here.
-source ~/.bashrc_custom
+echo "Greetings, $USER."
+echo "Today is" $(date +"%A, %B, %-d, %Y")
+cd

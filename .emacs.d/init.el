@@ -28,6 +28,9 @@
 (setq suggest-key-bindings t)
 (setq vc-follow-symlinks t)
 
+;; Make CTRL-x CTRL-u the "undo" command; this is easier to type then CTRL-x u
+(define-key global-map "\C-x\C-u" 'undo)
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -75,3 +78,16 @@
 (require 'jade-mode)    
 (add-to-list 'auto-mode-alist '("\\.styl$" . sws-mode))
 (add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
+
+;; Turn on auto indenting
+(define-key global-map (kbd "RET") 'newline-and-indent)
+(add-hook 'f90-mode-hook (lambda ()
+   (local-set-key (kbd "RET") 'reindent-then-newline-and-indent)))
+
+;; Turn on line and column numbering
+(line-number-mode 1)
+(column-number-mode 1)
+
+;; Turn off tabs
+(setq-default indent-tabs-mode nil)
+(setq standard-indent 3) ;set standard indent to 3

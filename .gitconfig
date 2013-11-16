@@ -1,0 +1,14 @@
+[color]
+	ui = auto
+[user]
+	name = MatthewPhinney
+	email = matthew.d.phinney@gmail.com
+[core]
+	autocrlf = input
+	safecrlf = true
+	editor = emacs
+[alias]
+	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+
+[credential]
+        helper = cache --timeout=7200

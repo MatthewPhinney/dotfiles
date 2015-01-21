@@ -113,10 +113,10 @@ alias ff="find . -name '*\!{*}*' -ls"
 alias wget="wget --no-check-certificate"
 
 # 2.3) Text and editor commands
-alias em='emacs -nw'     # No X11 windows
+alias em='/usr/local/Cellar/emacs/24.4/Emacs.app/Contents/MacOS/Emacs -nw'     # No X11 windows
 alias eqq='emacs -nw -Q' # No config and no X11
 export EDITOR='emacs -nw'
-export VISUAL='emacs -nw' 
+export VISUAL='emacs -nw'
 
 # 2.4) grep options
 export GREP_OPTIONS='--color=auto'
@@ -134,7 +134,7 @@ command -v rlwrap >/dev/null 2>&1 || { echo >&2 "Install rlwrap to use node: sud
 
 # 2.7) node.js and nvm
 # http://nodejs.org/api/repl.html#repl_repl
-alias node="env NODE_NO_READLINE=1 rlwrap node"
+#alias node="env NODE_NO_READLINE=1 rlwrap node" COMMENTED OUT SO THAT NODE CAN BE USED FROM WITHIN EMACS
 alias node_repl="node -e \"require('repl').start({ignoreUndefined: true})\""
 export NODE_DISABLE_COLORS=1
 if [ -s ~/.nvm/nvm.sh ]; then
@@ -142,6 +142,23 @@ if [ -s ~/.nvm/nvm.sh ]; then
     source ~/.nvm/nvm.sh
     nvm use v0.10.12 &> /dev/null # silence nvm use; needed for rsync
 fi
+
+# 2.8) set hub as default git command
+alias hub='git'
+
+# 2.9) git
+alias git=hub
+alias gp="git push"
+alias ga="git add --all"
+alias gc="git commit"
+alias gcm="git commit -m "$1""
+alias gcd="git checkout develop"
+alias gs="git status"
+alias pld="git pull --rebase ripple develop"
+alias plr="git pull --rebase ripple release"
+alias prd="git push && git pull-request -b ripple:develop && git checkout develop"
+alias prr="git push && git pull-request -b ripple:release && git checkout release"
+alias newpr="git checkout -b pr/$(date +%y%m%d%H%M) && git push origin -u pr/$(date +%y%m%d%H%M)"
 
 ##
 ## -- Personalize welcome message

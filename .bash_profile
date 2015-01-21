@@ -19,7 +19,7 @@ function mountAndroid { hdiutil attach ~/ANDROID_CODE.dmg -mountpoint /Volumes/A
 # Setup Amazon EC2 command-line tools
 export EC2_HOME=~/.ec2
 export PATH=$PATH:$EC2_HOME/bin
-export EC2_PRIVATE_KEY=`ls $EC2_HOME/*.pem`
+#export EC2_PRIVATE_KEY=`ls $EC2_HOME/*.pem`
 export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 [[ -s /Users/matthewphinney/.nvm/nvm.sh ]] && . /Users/matthewphinney/.nvm/nvm.sh # This loads NVM
 

@@ -144,10 +144,10 @@ if [ -s ~/.nvm/nvm.sh ]; then
 fi
 
 # 2.8) set hub as default git command
-alias hub='git'
+#alias hub='git'
 
 # 2.9) git
-alias git=hub
+alias git='hub'
 alias gp="git push"
 alias ga="git add --all"
 alias gc="git commit"
@@ -158,7 +158,7 @@ alias pld="git pull --rebase ripple develop"
 alias plr="git pull --rebase ripple release"
 alias prd="git push && git pull-request -b ripple:develop && git checkout develop"
 alias prr="git push && git pull-request -b ripple:release && git checkout release"
-alias newpr="git checkout -b pr/$(date +%y%m%d%H%M) && git push origin -u pr/$(date +%y%m%d%H%M)"
+alias newpr="source ~/.bash_profile; ddd=$(date +%y%m%d%H%M%S); git checkout -b "pr/$ddd"; git push origin -u "pr/$ddd""
 
 ##
 ## -- Personalize welcome message
@@ -166,4 +166,4 @@ alias newpr="git checkout -b pr/$(date +%y%m%d%H%M) && git push origin -u pr/$(d
 
 echo "Greetings, $USER."
 echo "Today is" $(date +"%A, %B, %-d, %Y")
-cd
+

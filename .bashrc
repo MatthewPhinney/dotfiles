@@ -132,38 +132,18 @@ export LC_ALL=POSIX
 # http://stackoverflow.com/a/677212
 command -v rlwrap >/dev/null 2>&1 || { echo >&2 "Install rlwrap to use node: sudo apt-get install -y rlwrap";}
 
-# 2.7) node.js and nvm
-# http://nodejs.org/api/repl.html#repl_repl
-#alias node="env NODE_NO_READLINE=1 rlwrap node" COMMENTED OUT SO THAT NODE CAN BE USED FROM WITHIN EMACS
-alias node_repl="node -e \"require('repl').start({ignoreUndefined: true})\""
-export NODE_DISABLE_COLORS=1
-if [ -s ~/.nvm/nvm.sh ]; then
-    NVM_DIR=~/.nvm
-    source ~/.nvm/nvm.sh
-    nvm use v0.10.12 &> /dev/null # silence nvm use; needed for rsync
-fi
-
-# 2.8) set hub as default git command
-#alias hub='git'
-
-# 2.9) git
+# 2.7) git
 alias git='hub'
 alias gp="git push"
 alias ga="git add --all"
 alias gc="git commit"
 alias gcm="git commit -m "$1""
-alias gcd="git checkout develop"
+alias gcf="git commit --amend --no-edit"
 alias gs="git status"
-alias pld="git pull --rebase ripple develop"
-alias plr="git pull --rebase ripple release"
-alias prd="git push && git pull-request -b ripple:develop && git checkout develop"
-alias prr="git push && git pull-request -b ripple:release && git checkout release"
-alias newpr="source ~/.bash_profile; ddd=$(date +%y%m%d%H%M%S); git checkout -b "pr/$ddd"; git push origin -u "pr/$ddd""
-
-##
-## -- Personalize welcome message
-##
+alias newpr="ddd=\$(date +%y%m%d%H%M%S); git checkout -b "pr/\$ddd"; git push origin -u "pr/\$ddd""
 
 echo "Greetings, $USER."
 echo "Today is" $(date +"%A, %B, %-d, %Y")
 
+# 2.8) pass
+source /usr/local/etc/bash_completion.d/password-store

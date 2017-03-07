@@ -16,6 +16,8 @@
 (require 'whitespace)
 (require 'dired-x)
 (require 'compile)
+(require 'shell-command)
+(shell-command-completion-mode)
 (ido-mode t)
 (menu-bar-mode -1)
 (normal-erase-is-backspace-mode 1)
@@ -30,6 +32,10 @@
 
 ;; Make CTRL-x CTRL-u the "undo" command; this is easier to type then CTRL-x u
 (define-key global-map "\C-x\C-u" 'undo)
+
+;; Highlight matching parentheses
+(setq show-paren-delay 0)
+(show-paren-mode 1)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -81,8 +87,8 @@
 
 ;; Turn on auto indenting
 (define-key global-map (kbd "RET") 'newline-and-indent)
-(add-hook 'f90-mode-hook (lambda ()
-   (local-set-key (kbd "RET") 'reindent-then-newline-and-indent)))
+;;(add-hook 'f90-mode-hook (lambda ()
+;;   (local-set-key (kbd "RET") 'reindent-then-newline-and-indent)))
 
 ;; Turn on line and column numbering
 (line-number-mode 1)
@@ -90,4 +96,5 @@
 
 ;; Turn off tabs
 (setq-default indent-tabs-mode nil)
-(setq standard-indent 3) ;set standard indent to 3
+(setq standard-indent 2) ;set standard indent to 2
+(setq tab-width 2)
